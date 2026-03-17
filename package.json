@@ -2,6 +2,10 @@
   "name": "5am-club-calcalist",
   "private": true,
   "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "npx playwright install"
+  },
   "dependencies": {
     "playwright": "^1.57.0",
     "apify": "^3.4.2"
