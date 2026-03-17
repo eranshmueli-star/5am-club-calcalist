@@ -1,33 +1,24 @@
 import { Actor } from 'apify';
 
-const URL = 'https://www.calcalist.co.il/updates_news';
-
 await Actor.init();
 
-const res = await fetch(URL);
+const res = await fetch('https://www.calcalist.co.il/updates_news');
 const html = await res.text();
 
-// חיפוש כותרות
-const matches = [...html.matchAll(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/g)];
+const titles = [...html.matchAll(/title="([^"]+)"/g)];
 
 const items = [];
-const seen = new Set();
 
-for (const m of matches) {
-  let link = m[1];
-  let title = m[2].replace(/<[^>]+>/g, '').trim();
+for (const t of titles) {
+  const title = t[1];
 
-  if (!link.includes('/article/')) continue;
   if (title.length < 20) continue;
+  if (items.find(i => i.title === title)) continue;
 
-  if (link.startsWith('/')) {
-    link = 'https://www.calcalist.co.il' + link;
-  }
-
-  if (seen.has(link)) continue;
-
-  seen.add(link);
-  items.push({ title, link });
+  items.push({
+    title,
+    link: 'https://www.calcalist.co.il'
+  });
 
   if (items.length >= 5) break;
 }
