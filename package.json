@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "playwright": "^1.57.0"
+    "playwright": "^1.57.0",
+    "apify": "^3.4.2"
   }
 }
