@@ -1,0 +1,8 @@
+{
+  "name": "5am-club-calcalist",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}
